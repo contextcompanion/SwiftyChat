@@ -56,7 +56,11 @@ public struct BasicInputView: View {
         MultilineTextField(
             attributedText: self.internalAttributedMessage,
             placeholder: placeholder,
-            isEditing: self.$isEditing
+            isEditing: self.$isEditing,
+            onCommit: {
+                self.onCommit?(.text(message))
+                self.message.removeAll()
+            }
         )
         .onPreferenceChange(ContentSizeThatFitsKey.self) {
             self.contentSizeThatFits = $0

@@ -486,7 +486,7 @@ internal struct UITextViewWrapper: UIViewRepresentable {
                 self.isEditing = false
             }
 
-            onCommit?()
+            //onCommit?()
         }
 
         func textView(
@@ -503,14 +503,18 @@ internal struct UITextViewWrapper: UIViewRepresentable {
             shouldChangeTextIn range: NSRange,
             replacementText text: String
         ) -> Bool {
-            guard let onCommit = self.onCommit, text == "\n" else {
+            guard let onCommit = self.onCommit else {
                 return true
             }
 
-            textView.resignFirstResponder()
-            onCommit()
+            if text == "\n" {
+                //textView.resignFirstResponder()
+                onCommit()
+                return false
+            }
 
-            return false
+            return true
         }
+
     }
 }
