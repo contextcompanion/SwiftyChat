@@ -43,6 +43,7 @@ public struct ChatView<Message: ChatMessage, User: ChatUser>: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottom) {
                 chatView(in: geometry)
+                    .iOS { $0.dismissKeyboardOnTappingOutside() }
                 inputView()
                     .onPreferenceChange(ContentSizeThatFitsKey.self) {
                         contentSizeThatFits = $0
@@ -57,7 +58,7 @@ public struct ChatView<Message: ChatMessage, User: ChatUser>: View {
         .environmentObject(DeviceOrientationInfo())
         .environmentObject(VideoManager<Message>())
         .edgesIgnoringSafeArea(.bottom)
-        .iOS { $0.dismissKeyboardOnTappingOutside() }
+        //.iOS { $0.dismissKeyboardOnTappingOutside() }
     }
     
     @ViewBuilder private func chatView(in geometry: GeometryProxy) -> some View {
