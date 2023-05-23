@@ -49,7 +49,7 @@ public struct ChatView<Message: ChatMessage, User: ChatUser>: View {
                         contentSizeThatFits = $0
                     }
                     .frame(height: messageEditorHeight)
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 18)
                 
                 PIPVideoCell<Message>()
             }
