@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct BasicInputView: View {
     
+    @Binding private var isEnabled: Bool
     @Binding private var message: String
     @Binding private var isEditing: Bool
     private let placeholder: String
@@ -35,12 +36,14 @@ public struct BasicInputView: View {
     public init(
         message: Binding<String>,
         isEditing: Binding<Bool>,
+        isEnabled: Binding<Bool>,
         placeholder: String = "",
         onCommit: @escaping (ChatMessageKind) -> Void
     ) {
         self._message = message
         self.placeholder = placeholder
         self._isEditing = isEditing
+        self._isEnabled = isEnabled
         self._contentSizeThatFits = State(initialValue: .zero)
         self.onCommit = onCommit
     }
@@ -73,7 +76,8 @@ public struct BasicInputView: View {
             self.onCommit?(.text(message))
             self.message.removeAll()
         }, label: {
-            Circle().fill(Color(.systemBlue))
+            let disabled = message.isEmpty || !self.isEnabled
+            Circle().fill(Color(disabled ? .systemGray : .systemBlue))
                 .frame(width: 36, height: 36)
                 .overlay(
                     Image(systemName: "paperplane.fill")
@@ -83,7 +87,7 @@ public struct BasicInputView: View {
                         .padding(8)
                 )
         })
-        .disabled(message.isEmpty)
+        .disabled(message.isEmpty || !self.isEnabled)
     }
 
     public var body: some View {
