@@ -42,8 +42,7 @@ internal struct TextCell<Message: ChatMessage>: View {
             .foregroundColor(cellStyle.textStyle.textColor)
             .padding(cellStyle.textPadding)
             .background(cellStyle.cellBackgroundColor)
-            .clipShape(RoundedCornerShape(radius: cellStyle.cellCornerRadius, corners: cellStyle.cellRoundedCorners)
-)
+            .clipShape(RoundedCornerShape(radius: cellStyle.cellCornerRadius, corners: cellStyle.cellRoundedCorners))
             .overlay(
                 
                 RoundedCornerShape(radius: cellStyle.cellCornerRadius, corners: cellStyle.cellRoundedCorners)
@@ -108,16 +107,19 @@ internal struct TextCell<Message: ChatMessage>: View {
     }
     
     @ViewBuilder public var body: some View {
-        if text.containsHtml() ||
-            AttributeDetective(
-                text: text,
-                enabledDetectors: enabledDetectors
-            ).doesContain()
-        {
-            attributedText
-        } else {
+        // Seemed like this was triggering and changing the style on some normal sentences
+        // Wasn't able to repro it entirely but trying to see if disabling will keep the style
+        // issues from cropping up again
+//        if text.containsHtml() ||
+//            AttributeDetective(
+//                text: text,
+//                enabledDetectors: enabledDetectors
+//            ).doesContain()
+//        {
+//            attributedText
+//        } else {
             defaultText
-        }
+//        }
     }
     
 }
