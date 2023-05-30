@@ -92,12 +92,12 @@ public struct BasicInputView: View {
 
     public var body: some View {
         VStack {
-            Divider()
+            //Divider()
             HStack {
                 self.messageEditorView
                 self.sendButton
             }
-        }
+        }.background(Color.white)
     }
     
 }
