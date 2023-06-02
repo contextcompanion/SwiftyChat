@@ -45,19 +45,14 @@ public struct ChatView<Message: ChatMessage, User: ChatUser>: View {
                 chatView(in: geometry)
                     .iOS { $0.dismissKeyboardOnTappingOutside() }
                 inputView()
-                    .onPreferenceChange(ContentSizeThatFitsKey.self) {
-                        contentSizeThatFits = $0
-                    }
-                    .frame(height: messageEditorHeight)
-                    .padding(.bottom, 18)
-                
-                PIPVideoCell<Message>()
+                    //.frame(height: messageEditorHeight)
+                    //.padding(.bottom, 18)
             }
-            .iOS { $0.keyboardAwarePadding() }
+            //.iOS { $0.keyboardAwarePadding() }
         }
         .environmentObject(DeviceOrientationInfo())
         .environmentObject(VideoManager<Message>())
-        .edgesIgnoringSafeArea(.bottom)
+//        .edgesIgnoringSafeArea(.bottom)
         //.iOS { $0.dismissKeyboardOnTappingOutside() }
     }
     
