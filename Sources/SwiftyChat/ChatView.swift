@@ -31,29 +31,17 @@ public struct ChatView<Message: ChatMessage, User: ChatUser>: View {
     @Binding private var scrollToBottom: Bool
     @State private var isKeyboardActive = false
     
-    @State private var contentSizeThatFits: CGSize = .zero
-    private var messageEditorHeight: CGFloat {
-        min(
-            contentSizeThatFits.height,
-            0.25 * UIScreen.main.bounds.height
-        )
-    }
-    
     public var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
+            VStack {
                 chatView(in: geometry)
                     .iOS { $0.dismissKeyboardOnTappingOutside() }
+                Spacer()
                 inputView()
-                    //.frame(height: messageEditorHeight)
-                    //.padding(.bottom, 18)
             }
-            //.iOS { $0.keyboardAwarePadding() }
         }
         .environmentObject(DeviceOrientationInfo())
         .environmentObject(VideoManager<Message>())
-//        .edgesIgnoringSafeArea(.bottom)
-        //.iOS { $0.dismissKeyboardOnTappingOutside() }
     }
     
     @ViewBuilder private func chatView(in geometry: GeometryProxy) -> some View {
@@ -133,7 +121,7 @@ public struct ChatView<Message: ChatMessage, User: ChatUser>: View {
             }
         }
         .background(Color.clear)
-        .padding(.bottom, messageEditorHeight + 30)
+        //.padding(.bottom, 30)
         .padding(.top, 10)
     }
     
